@@ -1,2 +1,2 @@
-# django-example
-Django example repository
+# django-simple-blog
+Django app for simple blog functionality
