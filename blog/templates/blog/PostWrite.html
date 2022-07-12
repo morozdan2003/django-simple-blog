@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action="{% url 'blog:write'%}?success" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Write a post</legend>
+            Title: <input type="text" name="title" id="title" /><br />
+            Contents:<br />
+            <input type="text" name="contents" id="contents" /><br />
+        </fieldset>
+        <input type="submit" />
+    </form>
+</body>
+</html>

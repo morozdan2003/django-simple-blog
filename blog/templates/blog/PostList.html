@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Posts list</title>
+</head>
+<body>
+    <ul>
+        {% for i in posts_list %}
+        <li>
+            <a href="{% url 'blog:view' %}?post={{ i.pk }}">
+                {% if i.title == '' %}
+                Unnamed post
+                {% else %}
+                {{ i.title }}
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

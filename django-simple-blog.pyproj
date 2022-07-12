@@ -33,6 +33,9 @@
   <ItemGroup>
     <Content Include=".env" />
     <Content Include=".gitignore" />
+    <Content Include="blog\templates\blog\PostList.html" />
+    <Content Include="blog\templates\blog\PostView.html" />
+    <Content Include="blog\templates\blog\PostWrite.html" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
@@ -55,6 +58,8 @@
   <ItemGroup>
     <Folder Include="blog\" />
     <Folder Include="blog\migrations\" />
+    <Folder Include="blog\templates\" />
+    <Folder Include="blog\templates\blog\" />
     <Folder Include="project\" />
   </ItemGroup>
   <ItemGroup>
