@@ -6,15 +6,10 @@
     <title></title>
 </head>
 <body>
-    <form action="{% url 'blog:write'%}?success" method="post">
+    <form action="{% url 'blog:write' %}" method="post">
         {% csrf_token %}
-        <fieldset>
-            <legend>Write a post</legend>
-            Title: <input type="text" name="title" id="title" /><br />
-            Contents:<br />
-            <input type="text" name="contents" id="contents" /><br />
-        </fieldset>
-        <input type="submit" />
+        {{ form.as_p }}
+        <input type="submit" value="Submit"/>
     </form>
 </body>
 </html>

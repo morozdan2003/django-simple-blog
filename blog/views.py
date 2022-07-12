@@ -2,6 +2,7 @@ from django.utils import timezone
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from .models import Post
+from .forms import PostWriteForm
 
 # Blog's index page view (static)
 def BlogIndexPage(request):
@@ -43,11 +44,14 @@ def PostView(request):
 # Post writing view
 def PostWrite(request):
     if request.method == "POST":
-        new_post = Post()
-        new_post.title = request.POST['title']
-        new_post.contents = request.POST['contents']
-        new_post.posted_at = timezone.now()
-        new_post.save()
-        return HttpResponse('Posted successfully! <a href="/">Go to home.</a>')
+        form = PostWriteForm(request.POST)
+        if form.is_valid():
+            post = Post()
+            post.title = form.cleaned_data['title']
+            post.contents = form.cleaned_data['contents']
+            post.posted_at = timezone.now()
+            post.save()
+            return HttpResponse('Posted successfully! <a href="/">Go to home.</a>')
     else:
-        return render(request, 'blog/PostWrite.html', {})
+        form = PostWriteForm()
+    return render(request, 'blog/PostWrite.html', {'form': form})
