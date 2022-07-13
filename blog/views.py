@@ -25,12 +25,8 @@ def BlogIndexPage(request):
 
 # Posts' list view
 def PostList(request):
-    if Post.objects.count() == 0:
-        return HttpResponse("This blog is empty")
-    else:
-        posts_list = Post.objects.order_by("-posted_at")
-        context = {'posts_list': posts_list}
-        return render(request, 'blog/PostList.html', context)
+    context = {'posts_list': Post.objects.order_by("-posted_at"), 'posts_count': Post.objects.count()}
+    return render(request, 'blog/PostList.html', context)
 
 # Post viewing view 
 def PostView(request):
@@ -51,7 +47,7 @@ def PostWrite(request):
             post.contents = form.cleaned_data['contents']
             post.posted_at = timezone.now()
             post.save()
-            return HttpResponse('Posted successfully! <a href="/">Go to home.</a>')
+            return render(request, 'blog/PostWriteSuccess.html',{})
     else:
         form = PostWriteForm()
     return render(request, 'blog/PostWrite.html', {'form': form})

@@ -1,23 +1,43 @@
-<!DOCTYPE html>
+{% extends 'blog/base.html' %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Posts list</title>
-</head>
-<body>
-    <ul>
-        {% for i in posts_list %}
-        <li>
-            <a href="{% url 'blog:view' %}?post={{ i.pk }}">
-                {% if i.title == '' %}
-                Unnamed post
-                {% else %}
-                {{ i.title }}
-                {% endif %}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block title %}Post list{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h1>Post list</h1>
+    </div>
+    <div class="col-auto">
+        <a class="btn btn-primary" role="button" href="{% url 'blog:write' %}">Write new post</a>
+        <a class="btn btn-secondary" role="button" href="admin/">Login</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {% if posts_count == 0 %}
+            <div class="card m-2 p-3">
+                <div class="card-body">
+                    <p>This blog is empty</p>
+                </div>
+            </div>
+        {% else %}
+            {% for i in posts_list %}
+                <div class="card m-2 p-3">
+                    <div class="card-body">
+                        <h2>
+                            {% if i.title == '' %}
+                                Unnamed post
+                            {% else %}
+                                {{ i.title }}
+                            {% endif %}
+                        </h2>
+                        <i>This is posted at {{ i.posted_at }}</i><br />
+                        <p>{{ i.contents|truncatechars:50 }}</p>
+                        <a class="btn btn-secondary" role="button" href="{% url 'blog:view' %}?post={{ i.pk }}">View this post...</a>
+                    </div>
+                </div>
+                {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

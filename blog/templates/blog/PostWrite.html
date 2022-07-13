@@ -1,15 +1,28 @@
-<!DOCTYPE html>
+{% extends 'blog/base.html' %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <form action="{% url 'blog:write' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit"/>
-    </form>
-</body>
-</html>
+{% block title %}Write a new post{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h1>Write a new post</h1>
+                <form action="{% url 'blog:write' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}">Title:</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.contents.id_for_label }}">Contents:</label>
+                        {{ form.contents }}
+                    </div>
+                    <a class="btn btn-secondary" role="button" href="{% url 'blog:index' %}">Return to post list...</a>
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
