@@ -6,13 +6,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Django blog app{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'blog/bootstrap/css/bootstrap.min.css' %}" />
+    {% if offline_bootstrap == True %}
+        <link rel="stylesheet" href="{% static offline_bootstrap_location|add:'/css/bootstrap.min.css' %}"/>
+    {% else %}
+        <link rel="stylesheet" href="{{ online_bootstrap_location }}/css/bootstrap.min.css" crossorigin="anonymous"/>
+    {% endif %}
 </head>
 <body>
     <div class="container p-3">
         {% block content %}
         {% endblock %}
     </div>
-    <script src="{% static 'blog/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {% if offline_bootstrap == True %}
+        <script src="{% static offline_bootstrap_location|add:'/js/bootstrap.bundle.min.js' %}"></script>
+    {% else %}
+        <link rel="stylesheet" href="{{ online_bootstrap_location }}/js/bootstrap.bundle.min.js" crossorigin="anonymous"/>
+    {% endif %}
 </body>
 </html>
